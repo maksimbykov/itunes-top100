@@ -1,0 +1,6 @@
+<div class="row gap-3">
+  <div *ngFor="let item of albumsList" class="col bg-light border rounded-3">
+    <img [src]="item['im:image'][2].label">
+    {{item["im:name"].label}}
+  </div>
+</div>
