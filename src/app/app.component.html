@@ -5,13 +5,13 @@
     </div>
     <div class="d-flex align-items-center">
       <form class="w-100 me-3" role="search">
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        <input type="search" class="form-control" [formControl]="name" placeholder="Search..." aria-label="Search">
       </form>
     </div>
   </div>
 </header>
 <div class="container-fluid">
-  <app-list></app-list>
+  <app-list [albumName]="name"></app-list>
 </div>
 
 
