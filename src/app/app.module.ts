@@ -7,13 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { ListComponent } from './list/list.component';
-import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
-    DetailsComponent
   ],
   imports: [
     BrowserModule,
