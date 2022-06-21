@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, DoCheck, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Album } from '../models/album';
 import { ItunesService } from '../services/itunes.service';
@@ -8,12 +8,15 @@ import { ItunesService } from '../services/itunes.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit, AfterViewChecked {
+export class ListComponent implements OnInit, DoCheck {
 
   constructor(private itunesService: ItunesService) { }
 
   @Input()
   albumName!: FormControl;
+
+  @Output()
+  likesCount = new EventEmitter<number>(true);
 
   albumsList!: Album[];
   cachedList!: Album[];
@@ -41,9 +44,11 @@ export class ListComponent implements OnInit, AfterViewChecked {
       );
   }
 
-  ngAfterViewChecked() {
-    if (this.cachedList)
+  ngDoCheck() {
+    if (this.cachedList) {
       this.handleLikes(this.getSavedLikes());
+      this.likesCount.emit(this.albumsList.filter(al => al.liked).length);
+    }
   }
 
   addRemoveToFavourites(id: string) {

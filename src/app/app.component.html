@@ -12,12 +12,12 @@
     </div>
     <div class="col d-flex justify-content-end">
       <button type="button" class="btn btn-outline-danger" (click)="openFavourites(list.cachedList)">
-        <span><i class="bi bi-heart-fill"></i> Favourites</span>
+        <span><i class="bi bi-heart-fill"></i> Favourites <span *ngIf="likesCount > 0">({{likesCount}})</span> </span>
       </button>
     </div>
     
   </div>
 </header>
 <div class="container-fluid">
-  <app-list #list [albumName]="name"></app-list>
+  <app-list #list [albumName]="name" (likesCount)="onLikesCountChange($event)"></app-list>
 </div>
