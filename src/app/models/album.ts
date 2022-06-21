@@ -1,4 +1,4 @@
-export class Item {
+export class Album {
     
     "im:name": {
         label: string;
@@ -71,5 +71,6 @@ export class Item {
             label: string;
         };
     };
+    liked!: boolean;
     
 }

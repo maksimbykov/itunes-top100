@@ -1,4 +1,4 @@
-import { Item } from "./item";
+import { Album } from "./album";
 
 export class Feed {
     author!: {
@@ -9,5 +9,5 @@ export class Feed {
             label: string;
         }
     };
-    entry!: Item[]
+    entry!: Album[]
 }
