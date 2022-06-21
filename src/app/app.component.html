@@ -6,12 +6,12 @@
         100</h4>
     </div>
     <div class="col">
-      <div class="w-100 me-3" role="search">
+      <div class="search" role="search">
         <input type="search" class="form-control" [formControl]="name" placeholder="Search..." aria-label="Search">
       </div>
     </div>
-    <div class="col">
-      <button class="btn btn-outline-danger me-2" (click)="openFavourites(list.cachedList)">
+    <div class="col d-flex justify-content-end">
+      <button type="button" class="btn btn-outline-danger" (click)="openFavourites(list.cachedList)">
         <span><i class="bi bi-heart-fill"></i> Favourites</span>
       </button>
     </div>
