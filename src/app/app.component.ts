@@ -3,6 +3,8 @@ import { FormControl } from '@angular/forms';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { FavouritesComponent } from './favourites/favourites.component';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,5 +30,14 @@ const analytics = getAnalytics(app);
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  constructor(private offcanvasService: NgbOffcanvas) {  }
+
   name = new FormControl('');
+
+  openFavourites(viewData: any) {
+    let canvasRef = this.offcanvasService.open(FavouritesComponent, { position: 'end' });
+    canvasRef.componentInstance.viewData = viewData;
+  }
+  
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, DoCheck, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Album } from '../models/album';
 import { ItunesService } from '../services/itunes.service';
@@ -8,7 +8,7 @@ import { ItunesService } from '../services/itunes.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, AfterViewChecked {
 
   constructor(private itunesService: ItunesService) { }
 
@@ -22,7 +22,7 @@ export class ListComponent implements OnInit {
     this.itunesService
       .getAlbumsInfo()
       .subscribe(
-        res => this.albumsList = this.cachedList = res.map(a =>  {
+        res => this.albumsList = this.cachedList = res.map(a => {
 
           a.liked = this.getSavedLikes().includes(a.id.attributes['im:id']);
           return a;
@@ -39,6 +39,11 @@ export class ListComponent implements OnInit {
           }
         }
       );
+  }
+
+  ngAfterViewChecked() {
+    if (this.cachedList)
+      this.handleLikes(this.getSavedLikes());
   }
 
   addRemoveToFavourites(id: string) {

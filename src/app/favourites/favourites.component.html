@@ -1,0 +1,19 @@
+<div class="offcanvas-header">
+    <h4 class="offcanvas-title">Favourites</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+</div>
+<div class="offcanvas-body">
+    <div *ngFor="let item of viewData;" class="container-fluid d-grid gap-3" style="grid-template-columns: 1fr 4fr;" >
+            <div class="item">
+                <img [src]="item['im:image'][0].label">
+            </div>
+            <div class="item">
+                {{item.title.label}}
+            </div>
+            
+    </div>
+
+    <div class="text-end">
+        <button [disabled]="!viewData?.length" type="button" class="btn btn-outline-dark" (click)="clearFavourites()">Clear</button>
+    </div>
+</div>

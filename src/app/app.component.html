@@ -1,5 +1,5 @@
 <header class="py-3 mb-3 border-bottom">
-  <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
+  <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr 1fr;">
     <div class="brand">
       <h4 class="brand-text"><img class="apple"
           src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"> iTunes Top
@@ -10,8 +10,14 @@
         <input type="search" class="form-control" [formControl]="name" placeholder="Search..." aria-label="Search">
       </div>
     </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-outline-danger me-2" (click)="openFavourites(list.cachedList)">
+        <span><i class="bi bi-heart-fill"></i> Favourites</span>
+      </button>
+    </div>
+    
   </div>
 </header>
 <div class="container-fluid">
-  <app-list [albumName]="name"></app-list>
+  <app-list #list [albumName]="name"></app-list>
 </div>
