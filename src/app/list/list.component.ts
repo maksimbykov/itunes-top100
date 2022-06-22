@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Album } from '../models/album';
 import { ItunesService } from '../services/itunes.service';
@@ -16,7 +16,7 @@ export class ListComponent implements OnInit, DoCheck {
   albumName!: FormControl;
 
   @Output()
-  likesCount = new EventEmitter<number>(true);
+  likesCountEvent = new EventEmitter<number>(true);
 
   albumsList!: Album[];
   cachedList!: Album[];
@@ -25,29 +25,14 @@ export class ListComponent implements OnInit, DoCheck {
     this.itunesService
       .getAlbumsInfo()
       .subscribe(
-        res => this.albumsList = this.cachedList = res.map(a => {
-
-          a.liked = this.getSavedLikes().includes(a.id.attributes['im:id']);
-          return a;
-        })
-      );
-
-    this.albumName
-      .valueChanges.subscribe(
-        value => {
-          if (value) {
-            this.albumsList = this.cachedList.filter(i => i.title.label.toLowerCase().includes(value.toLowerCase()))
-          } else {
-            this.albumsList = this.cachedList;
-          }
-        }
+        res => this.albumsList = this.cachedList = res
       );
   }
 
   ngDoCheck() {
     if (this.cachedList) {
       this.handleLikes(this.getSavedLikes());
-      this.likesCount.emit(this.albumsList.filter(al => al.liked).length);
+      this.filterAlbums(this.albumName.value)
     }
   }
 
@@ -68,6 +53,7 @@ export class ListComponent implements OnInit, DoCheck {
       a.liked = likedAlbums.includes(a.id.attributes['im:id']);
       return a;
     });
+    this.likesCountEvent.emit(this.albumsList.filter(al => al.liked).length);
   }
 
   getSavedLikes() {
@@ -78,5 +64,18 @@ export class ListComponent implements OnInit, DoCheck {
     }
     return likedAlbums;
   }
+
+  trackByMethod(index: number, el: Album) {
+    return el.id.label;
+  }
+
+  filterAlbums(value: string) {
+    if (value) {
+      this.albumsList = this.cachedList.filter(i => i.title.label.toLowerCase().includes(value.toLowerCase()));
+    } else {
+      this.albumsList = this.cachedList;
+    }
+  }
+
 
 }

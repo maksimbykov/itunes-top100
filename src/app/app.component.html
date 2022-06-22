@@ -19,5 +19,5 @@
   </div>
 </header>
 <div class="container-fluid">
-  <app-list #list [albumName]="name" (likesCount)="onLikesCountChange($event)"></app-list>
+  <app-list #list [albumName]="name" (likesCountEvent)="onLikesCountChange($event)"></app-list>
 </div>

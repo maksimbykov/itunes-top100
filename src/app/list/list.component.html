@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <div *ngFor="let item of albumsList;let indexOfelement=index;" class="col d-flex justify-content-center">
+  <div *ngFor="let item of albumsList;trackBy: trackByMethod" class="col d-flex justify-content-center">
     <ng-template #popTitle>{{item["im:name"].label}}</ng-template>
     <ng-template #popContent>
       <p><b><i>Artist:</i></b> {{item['im:artist'].label}}</p>
@@ -27,7 +27,7 @@
     </ng-template>
 
     <button type="button" class="btn btn-outline-secondary album" [ngbPopover]="popContent" [popoverTitle]="popTitle">
-      <p class="text-start">#{{indexOfelement+1}}</p>
+      <p class="text-start">#{{cachedList.indexOf(item)+1}}</p>
       <img [src]="item['im:image'][2].label">
     </button>
   </div>

@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -32,10 +32,11 @@ const analytics = getAnalytics(app);
 })
 export class AppComponent {
 
-  constructor(private offcanvasService: NgbOffcanvas) {  }
+  constructor(private offcanvasService: NgbOffcanvas) { }
 
   name = new FormControl('');
   likesCount: number = 0;
+
 
   openFavourites(viewData: Album[]) {
     let canvasRef = this.offcanvasService.open(FavouritesComponent, { position: 'end' });
@@ -45,5 +46,5 @@ export class AppComponent {
   onLikesCountChange(event: number) {
     this.likesCount = event;
   }
-  
+
 }
